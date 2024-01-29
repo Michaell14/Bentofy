@@ -91,7 +91,8 @@ function ImageCarousel( { card, editable, removable, bentoId, userId } :
                     </>
                 )}
             </CarouselContent>
-            {(removable && user && user.id===userId) && 
+
+            {/*(removable && user && user.id===userId) && 
                 <div className="grid w-full items-center mt-1">
                     <div className="image-upload absolute top-3 left-3">
                             
@@ -100,7 +101,7 @@ function ImageCarousel( { card, editable, removable, bentoId, userId } :
                             </Button>
                         </div>
                 </div>
-            }
+                */}
             {(editable && user && user.id===userId) &&  
                 <div className="grid w-full items-center mt-1">
                     <div className="image-upload absolute top-3 right-3">

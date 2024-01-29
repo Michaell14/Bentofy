@@ -230,7 +230,7 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-
+        {/*}
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger>
@@ -242,7 +242,7 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
               <p>Toggle Remove Mode</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
+  </TooltipProvider>*/}
 
       </Menubar>
 

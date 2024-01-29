@@ -16,14 +16,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-function TextCard({ card, editable, removable, bentoId, userId } : { card: object, editable : boolean, removable: boolean, bentoId: string, userId: string}) {
+function TextCard({ card, editable, removable, bentoId, userId }: { card: object, editable: boolean, removable: boolean, bentoId: string, userId: string }) {
 
-  const [ header, setHeader ] = useState("");
-  const [ body, setBody ] = useState("");
-  const [ size, setSize ] = useState(30);
-  const [ isDragged, setIsDragged ] = useState(false);
+  const [header, setHeader] = useState("");
+  const [body, setBody] = useState("");
+  const [size, setSize] = useState(30);
+  const [isDragged, setIsDragged] = useState(false);
 
-  const [ isChanged, setIsChanged ] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
   const supabase = useSupabaseClient();
   const user = useUser();
 
@@ -55,7 +55,6 @@ function TextCard({ card, editable, removable, bentoId, userId } : { card: objec
   }
 
   useEffect(() => {
-    console.log(card);
     if (card) {
       setBody(card.body);
       setHeader(card.header);
@@ -70,45 +69,45 @@ function TextCard({ card, editable, removable, bentoId, userId } : { card: objec
 
   return (
     <>
-      { (card && ("height" in card) && ("width" in card) && ("size" in card)) ?
-      <div style={{ gridRow: `span ${card["height"]} / span ${card["height"]}`, gridColumn: `span ${card["width"]} / span ${card["width"]}` }} className={"bg-slate-100 relative rounded-xl min-w-[200px]"}>
-        <ResizablePanelGroup
-          direction="vertical"
-          className={"rounded-lg border " + (card["height"] === 1 ? "h-[300px]" : card["height"] === 2 ? "h-[408px]" : "h-[617px]")}
-        >
-          <ResizablePanel defaultSize={card["size"]} onResize={(e) => setSize(e)}>
-            <div className="flex h-full items-center justify-center p-2">
-              <Textarea className={"h-[100%] resize-none font-semibold"} disabled={!editable || (user!==null && user.id!==userId)} placeholder={editable ? "Type your header here." : ""} value={header} onChange={(e) => { setIsChanged(true); setHeader(e.target.value) }} />
-            </div>
-          </ResizablePanel>
-          {editable && <ResizableHandle withHandle={editable && user!==null && user.id===userId} disabled={!editable || (user!==null && user.id!==userId)} onDragging={(e) => setIsDragged(e)}/>}
-          <ResizablePanel defaultSize={100-card["size"]}>
-            <div className={"flex h-full items-center justify-center p-2 " + (isChanged && "pb-1")}>
-              <Textarea className={"h-[100%] resize-none"} disabled={(!editable || (user!==null && user.id!==userId))} placeholder={editable ? "Type your body here." : ""} value={body} onChange={(e) => { setBody(e.target.value); setIsChanged(true) }} />
-            </div>
-          </ResizablePanel>
+      {(card && ("height" in card) && ("width" in card) && ("size" in card)) ?
+        <div style={{ gridRow: `span ${card["height"]} / span ${card["height"]}`, gridColumn: `span ${card["width"]} / span ${card["width"]}` }} className={"bg-slate-100 relative rounded-xl min-w-[200px]"}>
+          <ResizablePanelGroup
+            direction="vertical"
+            className={"rounded-lg border " + (card["height"] === 1 ? "h-[300px]" : card["height"] === 2 ? "h-[408px]" : "h-[617px]")}
+          >
+            <ResizablePanel defaultSize={card["size"]} onResize={(e) => setSize(e)}>
+              <div className="flex h-full items-center justify-center p-2">
+                <Textarea className={"h-[100%] resize-none font-semibold"} disabled={!editable || (user !== null && user.id !== userId)} placeholder={editable ? "Type your header here." : ""} value={header} onChange={(e) => { setIsChanged(true); setHeader(e.target.value) }} />
+              </div>
+            </ResizablePanel>
+            {editable && <ResizableHandle withHandle={editable && user !== null && user.id === userId} disabled={!editable || (user !== null && user.id !== userId)} onDragging={(e) => setIsDragged(e)} />}
+            <ResizablePanel defaultSize={100 - card["size"]}>
+              <div className={"flex h-full items-center justify-center p-2 " + (isChanged && "pb-1")}>
+                <Textarea className={"h-[100%] resize-none"} disabled={(!editable || (user !== null && user.id !== userId))} placeholder={editable ? "Type your body here." : ""} value={body} onChange={(e) => { setBody(e.target.value); setIsChanged(true) }} />
+              </div>
+            </ResizablePanel>
 
-          {(isChanged && editable && user && user.id===userId) &&
-            <TooltipProvider delayDuration={200}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button className="absolute bottom-0 w-[calc(100%-1rem)] ml-[.5rem] mb-1 h-5" variant="outline" onClick={updateCard}>
-                    <CheckIcon />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Confirm Changes</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>}
+            {(isChanged && editable && user && user.id === userId) &&
+              <TooltipProvider delayDuration={200}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button className="absolute bottom-0 w-[calc(100%-1rem)] ml-[.5rem] mb-1 h-5" variant="outline" onClick={updateCard}>
+                      <CheckIcon />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Confirm Changes</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>}
 
-        </ResizablePanelGroup>
+          </ResizablePanelGroup>
 
-      </div>
-      :
-      <>
-        <p>There is an error with loading the page</p>
-      </>
+        </div>
+        :
+        <>
+          <p>There is an error with loading the page</p>
+        </>
       }
     </>
   )
