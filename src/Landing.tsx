@@ -148,7 +148,7 @@ function Landing() {
     return (
         <>
             <div className="grid grid-cols-1 h-full mt-8 gap-4 place-content-center">
-                <p className="text-6xl font-extrabold">Bento-fy Your Life!🍱</p>
+                <p className="md:text-6xl text-5xl font-extrabold">Bento-fy Your Life!🍱</p>
                 <p className="text-slate-500">Create your own custom shareable bento grid</p>
                 { !user ?
                 <div className="flex place-content-center mt-5">
@@ -176,7 +176,7 @@ function Landing() {
                                                 render={({ field }) => (
                                                     <FormItem>
                                                         <div className="space-y-1 flex place-content-center">
-                                                            <FormLabel className="mt-2 text-xl fotn-mono font-bold">Bentofy.vercel.app/</FormLabel>
+                                                            <FormLabel className="mt-2 text-lg font-bold">Bentofy.vercel.app/</FormLabel>
                                                             <FormControl>
                                                                 <Input placeholder="Bento-Id" {...field} />
                                                             </FormControl>
