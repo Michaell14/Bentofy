@@ -27,6 +27,10 @@ function App() {
   const user = useUser();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = 'Bentofy - ' + bentoId;
+  }, [bentoId])
+
   //Listens to changes in the cards
   supabase.channel('room1')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'Table'}, (payload : any) => {
@@ -83,7 +87,7 @@ function App() {
       <div className="absolute top-8 left-1/2 translate-x-[-50%]">
         { (user && user.id===userId) ? <MenuBar editable={editable} removable={removable}/>
         : <div>
-            <p>{bentoId}'s card</p>
+            <p className="font-extrabold text-5xl">{bentoId}'s Bento🍱</p>
         </div>
         }
       </div>
@@ -96,8 +100,8 @@ function App() {
         }
       </div>
       
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] auto-rows-[170px] grid-flow-dense gap-5 mt-20">
-        {cards ? cards.map((card, index) => (
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] auto-rows-[170px] grid-flow-dense gap-5 mt-24">
+        {(cards && cards.length) ? cards.map((card, index) => (
             card?.type === "Text" ?
             <TextCard card={card} editable={editable} removable={removable} bentoId={bentoId} userId={userId} key={index}/>
             :
@@ -109,7 +113,7 @@ function App() {
             ))
         :
           <>
-            <p>There are no cards</p>
+            <p className="text-xl">This bento page is up for grabs! (This needs to be fixed)</p>
           </>
         }
       </div>

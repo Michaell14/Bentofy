@@ -53,10 +53,10 @@ function Landing() {
         },
     })
 
-
     supabase.auth.onAuthStateChange((event) => {
         if (event === 'INITIAL_SESSION') {
             getBentoId();
+            document.title = 'Bentofy - Home';
         }
     })
 
@@ -143,7 +143,6 @@ function Landing() {
                 }
             }
         }
-        
     }
 
     return (

@@ -76,8 +76,9 @@ function ImageCarousel( { card, editable, /*removable,*/ bentoId, userId } :
                                     <div className="mt-2">
                                         <img
                                             src={image}
-                                            alt="Preview"
+                                            alt="Loading..."
                                             className="rounded-md"
+                                            loading="lazy"
                                         />
                                     </div>
                                 </CardContent>
