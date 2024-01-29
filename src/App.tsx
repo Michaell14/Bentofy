@@ -101,7 +101,7 @@ function App() {
       </div>
       
       <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] auto-rows-[170px] grid-flow-dense gap-5 lg:mt-24 mt-36">
-        {(cards && user?.id===userId) ? cards.map((card, index) => (
+        {(cards) ? cards.map((card, index) => (
             card?.type === "Text" ?
             <TextCard card={card} editable={editable} removable={removable} bentoId={bentoId} userId={userId} key={index}/>
             :
