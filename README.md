@@ -2,7 +2,7 @@
 
 This is a one-stop hub of your own life that you can share with all of those arounds you in the form of the trending Bento UI style. With a multiple variety of cards, you can showcase your hobbies and passions through the photo gallery card, or enlighten everyone with your messages using the text card.
 
-This is a visual experience to get to know someone behind a screen. **Link to live project:**[https://bentofy.vercel.app/](https://bentofy.vercel.app/)
+This is a visual experience to get to know someone behind a screen. **Link to live project:** [https://bentofy.vercel.app/](https://bentofy.vercel.app/)
 
 ![Bentofy-preview](public/bento_screenshot.png)
 
