@@ -1,31 +1,25 @@
-# React + TypeScript + Vite
+# Bentofy Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a one-stop hub of your own life that you can share with all of those arounds you in the form of the trending Bento UI style. With a multiple variety of cards, you can showcase your hobbies and passions through the photo gallery card, or enlighten everyone with your messages using the text card.
 
-Currently, two official plugins are available:
+This is a visual experience to get to know someone behind a screen. **Link to live project:**[https://bentofy.vercel.app/](https://bentofy.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How It's Made
 
-## Expanding the ESLint configuration
+**Tech used:** React, TypeScript, Supabase, shadcn/ui, Tailwind CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+🚧Under Construction🚧
 
-- Configure the top-level `parserOptions` property like this:
+## Future Improvements (Will be implemented💯!)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-"# bentoMaker" 
+- **Drawable (New Card Type):** Think of it like putting your kid's drawing up on the refrigerator. This card acts like a sticker to add spice into your bento box. If you would like to add flowers into your bento box, then this card would be perfect.
+- **Deletion:** So far, once you add a card to your bento, you can't delete it (oops!). This feature will be implemented very soon.
+- **Mobile Functionality:** Some buttons overlap with others on the mobile view. The formatting and UI will be improved.
+- **Landing Page Design:** The design of the landing page will be improved upon to encourage more usage and to look more professional.
+- **Replace Textareas:** You may have noticed that when you view someone's profile (or disabling editmode), that the text in the text cards don't look good. This will be changed.
+- **Draggable:** When you don't like the layout of the cards, you'd probably want to drag some around to see how they would look right?
+- **More User Customization:** 
+  - Changing the background, card, and button colors
+  - Changing the background image
+  - Bigger card sizes
+  - Allow changes in font sizes in text cards
