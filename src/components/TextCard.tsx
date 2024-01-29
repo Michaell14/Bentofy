@@ -3,20 +3,16 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckIcon } from '@radix-ui/react-icons';
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 interface cardable {
-  id : number,
+  id: number,
   body: string,
   header: string,
   size: number
@@ -28,7 +24,6 @@ function TextCard({ card, editable, removable, bentoId, userId }: { card: cardab
   const [body, setBody] = useState("");
   const [size, setSize] = useState(30);
   const [isDragged, setIsDragged] = useState(false);
-
   const [isChanged, setIsChanged] = useState(false);
   const supabase = useSupabaseClient();
   const user = useUser();
@@ -37,13 +32,17 @@ function TextCard({ card, editable, removable, bentoId, userId }: { card: cardab
     if (!user) {
       return;
     }
+
     let { data } = await supabase
       .from('Table')
       .select('blocks, texts').eq("bentoId", bentoId);
+
     if (!data || !data[0]) {
       return;
+
     }
     const oldMessage = data[0].blocks;
+    
     for (var i = 0; i < oldMessage.length; i++) {
       // look for the entry with a matching `code` value
       if (oldMessage[i].id == card.id && oldMessage[i].type === "Text") {

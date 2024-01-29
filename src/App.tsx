@@ -8,14 +8,17 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
+interface bentoable {
+  bentoId: string
+}
 
 export async function loader({ params } : { params: any }) : Promise<{ bentoId: string; }> {
   return { bentoId: params.bentoId };
 }
 
 function App() {
-  const { toast } = useToast()
-  const { bentoId } = useLoaderData();
+  const { toast } = useToast();
+  const { bentoId } = useLoaderData() as bentoable;
   const [ cards, setCards ] = useState<any[]>([]);
   const [ editable, setEditable ] = useState(false);
   const [ removable, setRemovable ] = useState(false);
@@ -31,7 +34,7 @@ function App() {
       setEditable(payload.new.isEditable);
       setRemovable(payload.new.isRemovable);
     })
-    .subscribe()
+    .subscribe();
 
   useEffect(() => {
     async function fetchData() {
@@ -49,7 +52,7 @@ function App() {
       if (user) {
         let { data } = await supabase
         .from('Table')
-        .select('isEditable, isRemovable').eq('user_id', user.id)
+        .select('isEditable, isRemovable').eq('user_id', user.id);
         if (data?.length) {
           setEditable(data[0].isEditable);
           setRemovable(data[0].isRemovable);

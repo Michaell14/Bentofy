@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import {
     Form,
@@ -18,21 +19,20 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 
 const signUpSchema = z.object({
     email: z.string().min(2).max(50),
-    password: z.string().min(6).max(50),
     bentoId: z.string().min(1).max(20)
-})
+});
 
 const loginSchema = z.object({
     email: z.string().min(2).max(50),
-})
+});
 
 function Landing() {
 
-    const { toast } = useToast()
+    const { toast } = useToast();
     const supabase = useSupabaseClient();
     const user = useUser();
     const navigate = useNavigate();
@@ -43,7 +43,6 @@ function Landing() {
         resolver: zodResolver(signUpSchema),
         defaultValues: {
             email: "",
-            password: "",
             bentoId: "",
         },
     })
@@ -65,7 +64,7 @@ function Landing() {
         if (user) {
             let { data } = await supabase
                 .from('Table')
-                .select('bentoId').eq("user_id", user.id)
+                .select('bentoId').eq("user_id", user.id);
             if (data) {
                 setBentoId(data[0].bentoId);
             }
@@ -77,7 +76,6 @@ function Landing() {
         let { data } = await supabase
         .from('Table')
         .select('bentoId').eq("bentoId", id);
-        console.log(data);
         if (data && data.length > 0) {
             return false;
         }
@@ -91,27 +89,25 @@ function Landing() {
             options: {
                 shouldCreateUser: false
             }
-        })
+        });
 
         if (error) {
             toast({
                 title: "Error",
                 description: error.message 
-            })
+            });
         } else {
             toast({
                 title: "Check your email",
                 description: "Check your email for a one time link. You may need to check your spam.",
-            })
+            });
         }
-  
     }
 
     async function onSubmitSignUp(values: z.infer<typeof signUpSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         checkValidBentoId(values.bentoId).then((res) => {
-            console.log(res);
             if (!res) {
                 toast({
                     title: "Oops, someone took your favorite id.",
@@ -126,23 +122,23 @@ function Landing() {
         async function signUp() {
             const { data, error } = await supabase.auth.signUp({
                 email: values.email,
-                password: values.password,
-            })
+                password: uuidv4(),
+            });
     
             if (error) {
                 toast({
                     title: "Error",
                     description: error.message,
-                })
+                });
             } else {
                 if (data && data.user) {
                     await supabase
                     .from('Table')
-                    .insert({ user_id: data.user.id, blocks: [], bentoId: values.bentoId })
+                    .insert({ user_id: data.user.id, blocks: [], bentoId: values.bentoId });
                     toast({
                         title: "Success!",
                         description: "Please log in.",
-                    })
+                    });
                     setTabValue("Log in");
                 }
             }
@@ -204,22 +200,6 @@ function Landing() {
                                                         </FormControl>
                                                         <FormDescription>
                                                             You will be sent a confirmation email.
-                                                        </FormDescription>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                            <FormField
-                                                control={signUpForm.control}
-                                                name="password"
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>Password</FormLabel>
-                                                        <FormControl>
-                                                            <Input type="password" placeholder="password" {...field} />
-                                                        </FormControl>
-                                                        <FormDescription>
-                                                            A strong password will keep you secure.
                                                         </FormDescription>
                                                         <FormMessage />
                                                     </FormItem>
