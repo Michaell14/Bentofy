@@ -18,7 +18,7 @@ interface cardable {
   size: number
 }
 
-function TextCard({ card, editable, removable, bentoId, userId }: { card: cardable, editable: boolean, removable: boolean, bentoId: string, userId: string }) {
+function TextCard({ card, editable, /*removable,*/ bentoId, userId }: { card: cardable, editable: boolean, removable: boolean, bentoId: string, userId: string }) {
 
   const [header, setHeader] = useState("");
   const [body, setBody] = useState("");
@@ -42,7 +42,7 @@ function TextCard({ card, editable, removable, bentoId, userId }: { card: cardab
 
     }
     const oldMessage = data[0].blocks;
-    
+
     for (var i = 0; i < oldMessage.length; i++) {
       // look for the entry with a matching `code` value
       if (oldMessage[i].id == card.id && oldMessage[i].type === "Text") {

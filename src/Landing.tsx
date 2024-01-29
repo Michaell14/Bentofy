@@ -65,7 +65,7 @@ function Landing() {
             let { data } = await supabase
                 .from('Table')
                 .select('bentoId').eq("user_id", user.id);
-            if (data) {
+            if (data && data.length) {
                 setBentoId(data[0].bentoId);
             }
         }
@@ -137,7 +137,7 @@ function Landing() {
                     .insert({ user_id: data.user.id, blocks: [], bentoId: values.bentoId });
                     toast({
                         title: "Success!",
-                        description: "Please log in.",
+                        description: "Please continue to your bento page.",
                     });
                     setTabValue("Log in");
                 }
@@ -199,7 +199,7 @@ function Landing() {
                                                             <Input placeholder="Email" {...field} />
                                                         </FormControl>
                                                         <FormDescription>
-                                                            You will be sent a confirmation email.
+                                                            Make your bento look delicious.
                                                         </FormDescription>
                                                         <FormMessage />
                                                     </FormItem>

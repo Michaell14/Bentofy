@@ -34,7 +34,7 @@ interface itemable {
   id: number | null
 }
 
-function MenuBar({ editable, removable }: { editable: boolean, removable: boolean }) {
+function MenuBar({ editable/*, removable*/ }: { editable: boolean, removable: boolean }) {
   const { toast } = useToast()
   const user = useUser();
   const [width, setWidth] = useState<number | null>(null);
@@ -213,7 +213,7 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
 
         <TooltipProvider delayDuration={200}>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Toggle variant="outline" aria-label="Toggle italic" pressed={editable} onClick={toggleEditable}>
                 <Pencil2Icon />
               </Toggle>

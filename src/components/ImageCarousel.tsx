@@ -9,7 +9,7 @@ import { UploadIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button"
 
 
-function ImageCarousel( { card, editable, removable, bentoId, userId } : 
+function ImageCarousel( { card, editable, /*removable,*/ bentoId, userId } : 
     { card: any, editable : boolean, removable : boolean, bentoId: string, userId: string}) {
 
     const supabase = useSupabaseClient();
@@ -29,7 +29,7 @@ function ImageCarousel( { card, editable, removable, bentoId, userId } :
             return;
         }
 
-        const { data, error } = await supabase.storage.from('images')
+        const { data } = await supabase.storage.from('images')
             .list(bentoId + "/" + card["id"], {
             limit: 10,
             offset: 0,
