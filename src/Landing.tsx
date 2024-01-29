@@ -74,7 +74,7 @@ function Landing() {
 
     async function checkValidBentoId(id: string){
         
-        let { data, error } = await supabase
+        let { data } = await supabase
         .from('Table')
         .select('bentoId').eq("bentoId", id);
         console.log(data);

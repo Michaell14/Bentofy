@@ -8,6 +8,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
+
 export async function loader({ params } : { params: any }) {
   return { bentoId: params.bentoId };
 }
@@ -15,7 +16,7 @@ export async function loader({ params } : { params: any }) {
 function App() {
   const { toast } = useToast()
   const { bentoId } = useLoaderData();
-  const [ cards, setCards ] = useState([]);
+  const [ cards, setCards ] = useState<any[]>([]);
   const [ editable, setEditable ] = useState(false);
   const [ removable, setRemovable ] = useState(false);
   const [ userId, setUserId ] = useState("");
@@ -24,7 +25,6 @@ function App() {
   const navigate = useNavigate();
 
   //Listens to changes in the cards
-  const channels = 
   supabase.channel('room1')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'Table'}, payload => {
       setCards(payload.new.blocks);
@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      let { data, error } = await supabase
+      let { data } = await supabase
       .from('Table')
       .select('user_id, blocks').eq("bentoId", bentoId);
       if (data && data[0]) {
@@ -47,7 +47,7 @@ function App() {
 
     async function setEditingRemoving() {
       if (user) {
-        let { data, error } = await supabase
+        let { data } = await supabase
         .from('Table')
         .select('isEditable, isRemovable').eq('user_id', user.id)
         if (data?.length) {

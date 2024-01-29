@@ -5,7 +5,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState, useRef } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { v4 as uuidv4 } from "uuid";
-import { UploadIcon, TrashIcon } from "@radix-ui/react-icons";
+import { UploadIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button"
 
 

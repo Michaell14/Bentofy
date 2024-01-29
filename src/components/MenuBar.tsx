@@ -1,31 +1,10 @@
-import { useEffect, useState, useRef } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { useState } from "react";
 import {
   Menubar,
-  MenubarCheckboxItem,
-  MenubarContent,
-  MenubarItem,
   MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarTrigger,
 } from "@/components/ui/menubar"
 import { useToast } from "@/components/ui/use-toast";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { Toggle } from "@/components/ui/toggle"
 import {
   Select,
@@ -36,8 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons"
+import { Pencil2Icon } from "@radix-ui/react-icons"
 import {
   Tooltip,
   TooltipContent,
@@ -46,13 +24,22 @@ import {
 } from "@/components/ui/tooltip"
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
+interface itemable {
+  header: string | null,
+  body: string | null,
+  width: number | null,
+  height: number | null,
+  type: string | null,
+  size: number | null,
+  id: number | null
+}
 
 function MenuBar({ editable, removable }: { editable: boolean, removable: boolean }) {
   const { toast } = useToast()
   const user = useUser();
-  const [width, setWidth] = useState(null);
-  const [height, setHeight] = useState(null);
-  const [type, setType] = useState(null);
+  const [width, setWidth] = useState<number | null>(null);
+  const [height, setHeight] = useState<number | null>(null);
+  const [type, setType] = useState<string | null>(null);
   const supabase = useSupabaseClient();
 
   function isValid() {
@@ -95,10 +82,14 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
         return;
       }
 
-      let newItem = {
+      let newItem : itemable = {
         width: width,
         height: height,
-        type: type
+        type: type,
+        header: null,
+        size: null,
+        id: null,
+        body: null
       };
       let newGalleries = data[0].galleries;
       let newTexts = data[0].texts;
@@ -154,6 +145,7 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
       .select()
   }
 
+  /*
   async function toggleRemoveMode() {
     if (!user) {
       return;
@@ -164,38 +156,38 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
       .update({ isRemovable: !removable })
       .eq('user_id', user.id)
       .select()
-  }
+  }*/
 
   return (
     <>
       <Menubar className="p-6 gap-2">
         <MenubarMenu>
-          <Select onValueChange={(e) => setHeight(e)}>
+          <Select onValueChange={(e) => setHeight(parseInt(e))}>
             <SelectTrigger className="col-span-3">
               <SelectValue placeholder="Height" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select Height</SelectLabel>
-                <SelectItem value={1}>1</SelectItem>
-                <SelectItem value={2}>2</SelectItem>
-                <SelectItem value={3}>3</SelectItem>
+                <SelectItem value={"1"}>1</SelectItem>
+                <SelectItem value={"2"}>2</SelectItem>
+                <SelectItem value={"3"}>3</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </MenubarMenu>
         x
         <MenubarMenu>
-          <Select onValueChange={(e) => setWidth(e)}>
+          <Select onValueChange={(e) => setWidth(parseInt(e))}>
             <SelectTrigger className="col-span-3">
               <SelectValue placeholder="Width" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select Width</SelectLabel>
-                <SelectItem value={1}>1</SelectItem>
-                <SelectItem value={2}>2</SelectItem>
-                <SelectItem value={3}>3</SelectItem>
+                <SelectItem value={"1"}>1</SelectItem>
+                <SelectItem value={"2"}>2</SelectItem>
+                <SelectItem value={"3"}>3</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -215,7 +207,7 @@ function MenuBar({ editable, removable }: { editable: boolean, removable: boolea
           </Select>
         </MenubarMenu>
         <MenubarMenu>
-          <Button onClick={createNode}>Create Card</Button>
+          <Button onClick={createNode} disabled={!editable}>Create Card</Button>
         </MenubarMenu>
 
         <TooltipProvider delayDuration={200}>
