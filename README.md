@@ -4,7 +4,7 @@ This is a one-stop hub of your own life that you can share with all of those aro
 
 This is a visual experience to get to know someone behind a screen. **Link to live project:**[https://bentofy.vercel.app/](https://bentofy.vercel.app/)
 
-![Bentofy-preview](bento_screenshot.png)
+![Bentofy-preview](public/bento_screenshot.png)
 
 ## How It's Made
 
