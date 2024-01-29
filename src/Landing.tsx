@@ -177,7 +177,7 @@ function Landing() {
                                                 render={({ field }) => (
                                                     <FormItem>
                                                         <div className="space-y-1 flex place-content-center">
-                                                            <FormLabel className="mt-2 text-xl fotn-mono font-bold">Bentofy.me/</FormLabel>
+                                                            <FormLabel className="mt-2 text-xl fotn-mono font-bold">Bentofy.vercel.app/</FormLabel>
                                                             <FormControl>
                                                                 <Input placeholder="Bento-Id" {...field} />
                                                             </FormControl>
