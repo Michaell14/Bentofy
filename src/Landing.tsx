@@ -63,7 +63,7 @@ function Landing() {
 
     async function getBentoId() {
         if (user) {
-            let { data, error } = await supabase
+            let { data } = await supabase
                 .from('Table')
                 .select('bentoId').eq("user_id", user.id)
             if (data) {
@@ -86,7 +86,7 @@ function Landing() {
 
     async function onSubmitLogin(values: z.infer<typeof loginSchema>) {
         
-        const { data, error } = await supabase.auth.signInWithOtp({
+        const { error } = await supabase.auth.signInWithOtp({
             email: values.email,
             options: {
                 shouldCreateUser: false
