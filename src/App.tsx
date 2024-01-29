@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
 
-export async function loader({ params } : { params: any }) {
+export async function loader({ params } : { params: any }) : Promise<{ bentoId: string; }> {
   return { bentoId: params.bentoId };
 }
 
@@ -26,7 +26,7 @@ function App() {
 
   //Listens to changes in the cards
   supabase.channel('room1')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'Table'}, payload => {
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'Table'}, (payload : any) => {
       setCards(payload.new.blocks);
       setEditable(payload.new.isEditable);
       setRemovable(payload.new.isRemovable);
